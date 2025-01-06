@@ -8,6 +8,7 @@ function HomePage() {
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState(""); // State for selected region
   const [subRegion, setSubRegion] = useState(""); // State for selected sub-region
+  const [sortOrder, setSortOrder] = useState(""); // State for sorting
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
@@ -24,17 +25,27 @@ function HomePage() {
     .map((country) => country.subregion)
     .filter((value, index, self) => value && self.indexOf(value) === index);
 
-  // Filter countries by search, region, and sub-region
-  const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.name.common
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    const matchesRegion = region ? country.region === region : true;
-    const matchesSubRegion = subRegion
-      ? country.subregion === subRegion
-      : true;
-    return matchesSearch && matchesRegion && matchesSubRegion;
-  });
+  // Filter and sort countries
+  const filteredCountries = countries
+    .filter((country) => {
+      const matchesSearch = country.name.common
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchesRegion = region ? country.region === region : true;
+      const matchesSubRegion = subRegion
+        ? country.subregion === subRegion
+        : true;
+      return matchesSearch && matchesRegion && matchesSubRegion;
+    })
+    .sort((a, b) => {
+      if (sortOrder === "A-Z") {
+        return a.name.common.localeCompare(b.name.common);
+      }
+      if (sortOrder === "Z-A") {
+        return b.name.common.localeCompare(a.name.common);
+      }
+      return 0; // No sorting
+    });
 
   // Pagination logic
   const totalItems = filteredCountries.length;
@@ -57,7 +68,7 @@ function HomePage() {
           placeholder="Search for a country..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border rounded w-full md:w-1/3"
+          className="p-2 border rounded w-full md:w-1/4"
         />
         <RegionFilter setRegion={setRegion} />
         <SubRegionFilter
@@ -65,6 +76,15 @@ function HomePage() {
           selectedSubRegion={subRegion}
           setSubRegion={setSubRegion}
         />
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="p-2 border rounded w-full md:w-1/4"
+        >
+          <option value="">Sort by</option>
+          <option value="A-Z">Alphabetical (A-Z)</option>
+          <option value="Z-A">Alphabetical (Z-A)</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {currentCountries.map((country) => (
