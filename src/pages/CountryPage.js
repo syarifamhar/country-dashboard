@@ -33,13 +33,13 @@ function CountryPage() {
       <p>Sub-Region: {country.subregion}</p>
       <p>Capital: {country.capital?.[0]}</p>
       <p>Languages: {Object.values(country.languages || {}).join(", ")}</p>
-    
+      <p>Official Country Name: {country.name.official}</p>
       <h2 className="text-xl font-bold mt-4 mb-2">Currency:</h2>
       {currencies.length > 0 ? (
         <ul>
           {currencies.map((currency) => (
             <li key={currency.code}>
-              <strong>{currency.name}</strong> ({currency.symbol}) - Code:{" "}
+              <strong>{currency.name}</strong> ({currency.symbol}) - Currency Symbol:{" "}
               {currency.code}
             </li>
           ))}

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import CountryCard from "../components/CountryCard";
-import Filter from "../components/Filter";
+import RegionFilter from "../components/RegionFilter";
+import SubRegionFilter from "../components/SubRegionFilter";
 
 function HomePage() {
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState(""); // State for selected region
+  const [subRegion, setSubRegion] = useState(""); // State for selected sub-region
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
@@ -16,13 +18,22 @@ function HomePage() {
       .catch((error) => console.error(error));
   }, []);
 
-  // Filter countries by search and region
+  // Get unique sub-regions based on selected region
+  const subRegions = countries
+    .filter((country) => (region ? country.region === region : true))
+    .map((country) => country.subregion)
+    .filter((value, index, self) => value && self.indexOf(value) === index);
+
+  // Filter countries by search, region, and sub-region
   const filteredCountries = countries.filter((country) => {
     const matchesSearch = country.name.common
       .toLowerCase()
       .includes(search.toLowerCase());
     const matchesRegion = region ? country.region === region : true;
-    return matchesSearch && matchesRegion;
+    const matchesSubRegion = subRegion
+      ? country.subregion === subRegion
+      : true;
+    return matchesSearch && matchesRegion && matchesSubRegion;
   });
 
   // Pagination logic
@@ -40,15 +51,20 @@ function HomePage() {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
         <input
           type="text"
           placeholder="Search for a country..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border rounded w-full md:w-1/2 mr-4"
+          className="p-2 border rounded w-full md:w-1/3"
         />
-        <Filter setRegion={setRegion} />
+        <RegionFilter setRegion={setRegion} />
+        <SubRegionFilter
+          subRegions={subRegions}
+          selectedSubRegion={subRegion}
+          setSubRegion={setSubRegion}
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {currentCountries.map((country) => (
