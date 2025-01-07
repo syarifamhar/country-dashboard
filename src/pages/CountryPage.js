@@ -2,6 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+// Import marker images
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
+
+// Fix for marker icon issue
+const DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerRetina,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function CountryPage() {
   const { name } = useParams();
@@ -25,8 +43,9 @@ function CountryPage() {
       }))
     : [];
 
-  // Set map position using latitude and longitude
-  const position = country.latlng || [0, 0];
+  // Use capitalInfo to set the marker position
+  const position =
+    country.capitalInfo?.latlng || country.latlng || [0, 0]; // Fallback to country center if capitalInfo is unavailable
 
   return (
     <div className="p-4">
