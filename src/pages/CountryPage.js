@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "@fortawesome/fontawesome-free/css/all.css"; // Import Font Awesome CSS
 
-// Import marker images
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
-
-// Fix for marker icon issue
-const DefaultIcon = L.icon({
-  iconUrl: markerIcon,
-  iconRetinaUrl: markerRetina,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+// Custom Marker using Font Awesome
+const CustomIcon = L.divIcon({
+  html: '<i class="fas fa-map-marker-alt" style="font-size: 2rem; color: red;"></i>',
+  className: "custom-marker",
+  iconSize: [30, 42],
+  iconAnchor: [15, 42], // Center of the icon
+  popupAnchor: [0, -42], // Popup position relative to the icon
 });
-L.Marker.prototype.options.icon = DefaultIcon;
 
 function CountryPage() {
   const { name } = useParams();
@@ -34,7 +27,7 @@ function CountryPage() {
 
   if (!country) return <p>Loading...</p>;
 
-  // Extract currency information from the country data
+  // Extract currency information
   const currencies = country.currencies
     ? Object.entries(country.currencies).map(([currencyCode, details]) => ({
         code: currencyCode,
@@ -43,7 +36,7 @@ function CountryPage() {
       }))
     : [];
 
-  // Use capitalInfo to set the marker position
+  // Marker position: Capital city or country center
   const position =
     country.capitalInfo?.latlng || country.latlng || [0, 0]; // Fallback to country center if capitalInfo is unavailable
 
@@ -87,7 +80,7 @@ function CountryPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={position}>
+          <Marker position={position} icon={CustomIcon}>
             <Popup>
               {country.name.common} - {country.capital?.[0]}
             </Popup>
