@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import CountryCard from "../components/CountryCard";
 import RegionFilter from "../components/RegionFilter";
 import SubRegionFilter from "../components/SubRegionFilter";
+
 
 function HomePage() {
   const [countries, setCountries] = useState([]);
@@ -85,6 +87,15 @@ function HomePage() {
           <option value="A-Z">Alphabetical (A-Z)</option>
           <option value="Z-A">Alphabetical (Z-A)</option>
         </select>
+
+        {/* Link to the game */}
+      <div className="mt-4">
+        <Link to="/flag-game">
+          <button className="p-2 bg-green-500 text-white rounded hover:bg-green-700">
+            Play Flag Guessing Game
+          </button>
+        </Link>
+      </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {currentCountries.map((country) => (
@@ -106,6 +117,7 @@ function HomePage() {
           </button>
         ))}
       </div>
+      
     </div>
   );
 }
