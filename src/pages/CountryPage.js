@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "@fortawesome/fontawesome-free/css/all.css"; // Import Font Awesome CSS
+import { useTranslation } from "../hooks/useTranslation";
 
 // Custom Marker using Font Awesome
 const CustomIcon = L.divIcon({
@@ -16,16 +17,78 @@ const CustomIcon = L.divIcon({
 
 function CountryPage() {
   const { name } = useParams();
+  const { t } = useTranslation();
   const [country, setCountry] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/name/${name}`)
-      .then((response) => response.json())
-      .then((data) => setCountry(data[0]))
-      .catch((error) => console.error(error));
+    setLoading(true);
+    setError(null);
+    
+    fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(name)}?fields=name,flags,population,region,subregion,capital,currencies,languages,capitalInfo,latlng`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setCountry(data[0]);
+        } else {
+          throw new Error('Country not found');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching country:', error);
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [name]);
 
-  if (!country) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="p-4 flex justify-center items-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-lg">{t('loadingCountryInfo')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 flex justify-center items-center min-h-screen">
+        <div className="text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-red-600 mb-2">{t('errorLoadingCountry')}</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <Link to="/" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+            {t('backToHome')}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!country) {
+    return (
+      <div className="p-4 flex justify-center items-center min-h-screen">
+        <div className="text-center">
+          <div className="text-gray-500 text-6xl mb-4">❓</div>
+          <h2 className="text-2xl font-bold text-gray-600 mb-2">{t('countryNotFound')}</h2>
+          <p className="text-gray-600 mb-4">{t('countryNotFoundDesc')}</p>
+          <Link to="/" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+            {t('backToHome')}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // Extract currency information
   const currencies = country.currencies
@@ -42,50 +105,66 @@ function CountryPage() {
 
   return (
     <div className="p-4">
-      <Link to="/" className="text-blue-500 underline">Back</Link>
-      <h1 className="text-2xl font-bold">{country.name.common}</h1>
-      <img
-        src={country.flags.png}
-        alt={`${country.name.common} flag`}
-        className="my-4"
-      />
-      <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
-      <p><strong>Region:</strong> {country.region}</p>
-      <p><strong>Sub-Region:</strong> {country.subregion}</p>
-      <p><strong>Capital:</strong> {country.capital?.[0]}</p>
-      <p><strong>Languages:</strong> {Object.values(country.languages || {}).join(", ")}</p>
-      <p><strong>Official Country Name:</strong> {country.name.official}</p>
+      <Link to="/" className="text-blue-500 underline hover:text-blue-700">{t('backToHome')}</Link>
       
-      <h2 className="text-xl font-bold mt-4 mb-2">Currency:</h2>
-      {currencies.length > 0 ? (
-        <ul>
-          {currencies.map((currency) => (
-            <li key={currency.code}>
-              <strong>{currency.name}</strong> ({currency.symbol}) - Currency Code: {currency.code}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No currency information available.</p>
-      )}
-
-      <h2 className="text-xl font-bold mt-6 mb-2">Map:</h2>
-      <div className="my-4">
-        <MapContainer
-          center={position}
-          zoom={5}
-          style={{ height: "400px", width: "100%" }}
-        >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      <div className="mt-6">
+        <h1 className="text-3xl font-bold mb-4">{country.name?.common || t('unknown')}</h1>
+        
+        {country.flags?.png && (
+          <img
+            src={country.flags.png}
+            alt={`${country.name?.common || t('unknown')} flag`}
+            className="my-4 max-w-md rounded-lg shadow-lg"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
           />
-          <Marker position={position} icon={CustomIcon}>
-            <Popup>
-              {country.name.common} - {country.capital?.[0]}
-            </Popup>
-          </Marker>
-        </MapContainer>
+        )}
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <p><strong>{t('population')}:</strong> {country.population ? country.population.toLocaleString() : t('unknown')}</p>
+            <p><strong>{t('region')}:</strong> {country.region || t('unknown')}</p>
+            <p><strong>{t('subRegion')}:</strong> {country.subregion || t('unknown')}</p>
+            <p><strong>{t('capital')}:</strong> {country.capital?.[0] || t('unknown')}</p>
+            <p><strong>{t('languages')}:</strong> {country.languages ? Object.values(country.languages).join(", ") : t('unknown')}</p>
+            <p><strong>{t('officialCountryName')}:</strong> {country.name?.official || t('unknown')}</p>
+          </div>
+          
+          <div>
+            <h2 className="text-xl font-bold mb-3">{t('currency')}:</h2>
+            {currencies.length > 0 ? (
+              <ul className="space-y-2">
+                {currencies.map((currency) => (
+                  <li key={currency.code} className="p-2 bg-gray-50 rounded">
+                    <strong>{currency.name}</strong> ({currency.symbol}) - {currency.code}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">{t('noCurrencyInfo')}</p>
+            )}
+          </div>
+        </div>
+
+        <h2 className="text-xl font-bold mt-8 mb-4">{t('map')}:</h2>
+        <div className="my-4 border rounded-lg overflow-hidden">
+          <MapContainer
+            center={position}
+            zoom={5}
+            style={{ height: "400px", width: "100%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker position={position} icon={CustomIcon}>
+              <Popup>
+                {country.name?.common || t('unknown')} - {country.capital?.[0] || t('unknown')}
+              </Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </div>
   );
