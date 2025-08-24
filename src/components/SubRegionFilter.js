@@ -10,7 +10,7 @@ function SubRegionFilter({ subRegions, selectedSubRegion, setSubRegion }) {
       <select
         value=""
         disabled
-        className="p-3 border border-gray-300 rounded-xl w-full md:w-1/2 bg-gray-100 text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="p-3 border border-gray-300 dark:border-gray-600 rounded-xl w-full md:w-1/2 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       >
         <option value="">{t('loading')}...</option>
       </select>
@@ -21,7 +21,7 @@ function SubRegionFilter({ subRegions, selectedSubRegion, setSubRegion }) {
     <select
       value={selectedSubRegion}
       onChange={(e) => setSubRegion(e.target.value)}
-      className="p-3 border border-gray-300 rounded-xl w-full md:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      className="p-3 border border-gray-300 dark:border-gray-600 rounded-xl w-full md:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
     >
       <option value="">{t('allSubRegions')}</option>
       {subRegions.map((subRegion, index) => (

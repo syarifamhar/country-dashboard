@@ -51,10 +51,10 @@ function CountryPage() {
 
   if (loading) {
     return (
-      <div className="p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-lg">{t('loadingCountryInfo')}</p>
+          <p className="mt-4 text-lg text-gray-800 dark:text-gray-200">{t('loadingCountryInfo')}</p>
         </div>
       </div>
     );
@@ -62,11 +62,11 @@ function CountryPage() {
 
   if (error) {
     return (
-      <div className="p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-red-600 mb-2">{t('errorLoadingCountry')}</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
           <Link to="/" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
             {t('backToHome')}
           </Link>
@@ -77,11 +77,11 @@ function CountryPage() {
 
   if (!country) {
     return (
-      <div className="p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
-          <div className="text-gray-500 text-6xl mb-4">❓</div>
-          <h2 className="text-2xl font-bold text-gray-600 mb-2">{t('countryNotFound')}</h2>
-          <p className="text-gray-600 mb-4">{t('countryNotFoundDesc')}</p>
+          <div className="text-gray-500 dark:text-gray-400 text-6xl mb-4">❓</div>
+          <h2 className="text-2xl font-bold text-gray-600 dark:text-gray-400 mb-2">{t('countryNotFound')}</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{t('countryNotFoundDesc')}</p>
           <Link to="/" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
             {t('backToHome')}
           </Link>
@@ -104,11 +104,11 @@ function CountryPage() {
     country.capitalInfo?.latlng || country.latlng || [0, 0]; // Fallback to country center if capitalInfo is unavailable
 
   return (
-    <div className="p-4">
-      <Link to="/" className="text-blue-500 underline hover:text-blue-700">{t('backToHome')}</Link>
+    <div className="p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <Link to="/" className="text-blue-500 dark:text-blue-400 underline hover:text-blue-700 dark:hover:text-blue-300">{t('backToHome')}</Link>
       
       <div className="mt-6">
-        <h1 className="text-3xl font-bold mb-4">{country.name?.common || t('unknown')}</h1>
+        <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">{country.name?.common || t('unknown')}</h1>
         
         {country.flags?.png && (
           <img

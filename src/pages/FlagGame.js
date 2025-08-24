@@ -157,10 +157,10 @@ function FlagGame() {
 
   if (loading) {
     return (
-      <div className="p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-lg">{t('loadingGame')}</p>
+          <p className="mt-4 text-lg text-gray-800 dark:text-gray-200">{t('loadingGame')}</p>
         </div>
       </div>
     );
@@ -168,11 +168,11 @@ function FlagGame() {
 
   if (error) {
     return (
-      <div className="p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-red-600 mb-2">{t('errorLoadingGame')}</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
           <button 
             onClick={() => window.location.reload()} 
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
@@ -192,10 +192,10 @@ function FlagGame() {
 
   if (gameOver) {
     return (
-      <div className="p-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">{t('gameOver')}</h1>
+      <div className="p-4 text-center bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">{t('gameOver')}</h1>
         {renderScoreMessage()}
-        <p className="text-lg mt-4">{t('yourScore')}: {score} / 15</p>
+        <p className="text-lg mt-4 text-gray-800 dark:text-gray-200">{t('yourScore')}: {score} / 15</p>
         <button
           onClick={() => window.location.reload()}
           className="mt-4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
@@ -214,17 +214,17 @@ function FlagGame() {
 
   if (!currentCountry || !currentCountry.name || !currentCountry.name.common) {
     return (
-      <div className="p-4 text-center">
+      <div className="p-4 text-center bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto"></div>
-        <p className="mt-4">{t('preparingQuestion')}</p>
+        <p className="mt-4 text-gray-800 dark:text-gray-200">{t('preparingQuestion')}</p>
       </div>
     );
   }
 
   return (
-    <div className="p-4 text-center">
-      <h1 className="text-2xl font-bold mb-4">{t('flagGuessingGame')}</h1>
-      <p className="text-lg mb-2">{t('score')}: {score} | {t('question')}: {questionCount + 1} / 15</p>
+    <div className="p-4 text-center bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">{t('flagGuessingGame')}</h1>
+      <p className="text-lg mb-2 text-gray-800 dark:text-gray-200">{t('score')}: {score} | {t('question')}: {questionCount + 1} / 15</p>
 
       {/* Display Flag */}
       {currentCountry.flags?.png && (

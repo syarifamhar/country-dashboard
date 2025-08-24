@@ -4,6 +4,7 @@ import CountryCard from "../components/CountryCard";
 import RegionFilter from "../components/RegionFilter";
 import SubRegionFilter from "../components/SubRegionFilter";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 import { useTranslation } from "../hooks/useTranslation";
 
 function HomePage() {
@@ -102,10 +103,10 @@ function HomePage() {
 
   if (loading) {
     return (
-      <div className="p-6 bg-gray-50 min-h-screen flex justify-center items-center">
+      <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen flex justify-center items-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-lg">{t('loadingCountries')}</p>
+          <p className="mt-4 text-lg text-gray-800 dark:text-gray-200">{t('loadingCountries')}</p>
         </div>
       </div>
     );
@@ -113,11 +114,11 @@ function HomePage() {
 
   if (error) {
     return (
-      <div className="p-6 bg-gray-50 min-h-screen flex justify-center items-center">
+      <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen flex justify-center items-center">
         <div className="text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-red-600 mb-2">{t('errorLoadingCountries')}</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
           <button 
             onClick={() => window.location.reload()} 
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
@@ -130,14 +131,14 @@ function HomePage() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="flex flex-wrap justify-between items-center mb-8 gap-4 bg-white p-6 rounded-2xl shadow-sm">
+    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <div className="flex flex-wrap justify-between items-center mb-8 gap-4 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm dark:shadow-gray-900/50">
         <input
           type="text"
           placeholder={t('searchPlaceholder')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-3 border border-gray-300 rounded-xl w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="p-3 border border-gray-300 dark:border-gray-600 rounded-xl w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400"
         />
         <RegionFilter setRegion={setRegion} />
         <SubRegionFilter
@@ -148,15 +149,16 @@ function HomePage() {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
-          className="p-3 border border-gray-300 rounded-xl w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="p-3 border border-gray-300 dark:border-gray-600 rounded-xl w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
         >
           <option value="">{t('sortBy')}</option>
           <option value="A-Z">{t('alphabeticalAZ')}</option>
           <option value="Z-A">{t('alphabeticalZA')}</option>
         </select>
 
-        {/* Language Switcher and Game Button */}
+        {/* Theme and Language Switchers */}
         <div className="flex items-center gap-4">
+          <ThemeSwitcher />
           <LanguageSwitcher />
           
           {/* Link to the game */}
@@ -170,7 +172,7 @@ function HomePage() {
 
       {filteredCountries.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-gray-500 text-lg">{t('noCountriesFound')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">{t('noCountriesFound')}</p>
         </div>
       ) : (
         <>
@@ -189,7 +191,7 @@ function HomePage() {
                   className={`px-4 py-2 mx-1 rounded-xl transition-all duration-200 ${
                     currentPage === index + 1
                       ? "bg-blue-500 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+                      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600"
                   }`}
                 >
                   {index + 1}
