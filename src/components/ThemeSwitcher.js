@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 
 function ThemeSwitcher() {
-  const { theme, toggleTheme, isLight, isDark } = useTheme();
+  const { toggleTheme, isLight } = useTheme();
 
   return (
     <button
