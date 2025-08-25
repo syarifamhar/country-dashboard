@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../hooks/useTranslation";
+import { translateRegion } from "../utils/regionTranslations";
 
 function CountryCard({ country }) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   // Add null checks to prevent crashes
   if (!country || !country.name || !country.name.common) {
@@ -49,13 +50,13 @@ function CountryCard({ country }) {
             </span>
           </div>
 
-          {/* Region */}
-          <div className="flex items-center justify-between">
-            <span className="text-gray-600 dark:text-gray-400 text-sm font-medium">{t('region')}:</span>
-            <span className="text-gray-800 dark:text-gray-200 font-semibold">
-              {country.region || t('unknown')}
-            </span>
-          </div>
+                           {/* Region */}
+                 <div className="flex items-center justify-between">
+                   <span className="text-gray-600 dark:text-gray-400 text-sm font-medium">{t('region')}:</span>
+                   <span className="text-gray-800 dark:text-gray-200 font-semibold">
+                     {translateRegion(country.region, language) || t('unknown')}
+                   </span>
+                 </div>
 
           {/* Population */}
           <div className="flex items-center justify-between">

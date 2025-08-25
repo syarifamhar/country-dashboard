@@ -38,6 +38,7 @@ export const id = {
   noCurrencyInfo: 'Informasi mata uang tidak tersedia.',
   map: 'Peta',
   loadingCountryInfo: 'Memuat informasi negara...',
+  countryInformation: 'Informasi Negara',
   
   // FlagGame
   flagGuessingGame: 'Permainan Tebak Bendera',
@@ -67,9 +68,41 @@ export const id = {
   oceania: 'Oseania',
   americas: 'Amerika',
   antarctic: 'Antarktika',
+
+  // Sub-Regions
+  northernAfrica: 'Afrika Utara',
+  southernEurope: 'Eropa Selatan',
+  southEasternAsia: 'Asia Tenggara',
+  southAmerica: 'Amerika Selatan',
+  caribbean: 'Karibia',
+  northAmerica: 'Amerika Utara',
+  westernAsia: 'Asia Barat',
+  northernEurope: 'Eropa Utara',
+  centralEurope: 'Eropa Tengah',
+  southernAsia: 'Asia Selatan',
+  easternAfrica: 'Afrika Timur',
+  polynesia: 'Polinesia',
+  middleAfrica: 'Afrika Tengah',
+  easternEurope: 'Eropa Timur',
+  westernAfrica: 'Afrika Barat',
+  southernAfrica: 'Afrika Selatan',
+  westernEurope: 'Eropa Barat',
+  micronesia: 'Mikronesia',
+  centralAsia: 'Asia Tengah',
+  centralAmerica: 'Amerika Tengah',
+  australiaAndNewZealand: 'Australia dan Selandia Baru',
+  easternAsia: 'Asia Timur',
+  southeastEurope: 'Eropa Tenggara',
+  melanesia: 'Melanesia',
   
   // Error Messages
   somethingWentWrong: 'Terjadi kesalahan',
   somethingWentWrongDesc: 'Maaf, terjadi sesuatu yang tidak terduga.',
-  reloadPage: 'Muat Ulang Halaman'
+  reloadPage: 'Muat Ulang Halaman',
+
+  // Theme
+  lightMode: 'Mode Terang',
+  darkMode: 'Mode Gelap',
+  switchToLightMode: 'Ganti ke Mode Terang',
+  switchToDarkMode: 'Ganti ke Mode Gelap'
 }; 

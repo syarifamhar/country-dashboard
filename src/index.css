@@ -12,6 +12,24 @@ code {
     monospace;
 }
 
+/* Enhanced smooth theme transitions */
+* {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Force light mode as default if no theme class is applied */
+html:not(.dark):not(.light) {
+  @apply bg-gray-50;
+}
+
+/* Theme switcher specific animations */
+.theme-switcher-icon {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

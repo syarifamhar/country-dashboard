@@ -14,18 +14,32 @@ export const ThemeProvider = ({ children }) => {
   // Initialize theme from localStorage or default to 'light'
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('country-dashboard-theme');
+    // Force light mode as default if no saved theme
     return savedTheme || 'light';
   });
 
-  // Apply theme to document body
+  // Apply theme to document root element
   useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(theme);
+    const root = document.documentElement;
+    
+    // Remove any existing theme classes
+    root.classList.remove('light', 'dark');
+    
+    // Add the current theme class
+    root.classList.add(theme);
+    
+    // Save to localStorage
     localStorage.setItem('country-dashboard-theme', theme);
+    
+    // Debug logging
+    console.log('Theme applied:', theme);
+    console.log('Root classes:', root.classList.toString());
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    console.log('Toggling theme from', theme, 'to', newTheme);
+    setTheme(newTheme);
   };
 
   const value = {

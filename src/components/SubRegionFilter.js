@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "../hooks/useTranslation";
+import { translateSubRegion } from "../utils/regionTranslations";
 
 function SubRegionFilter({ subRegions, selectedSubRegion, setSubRegion }) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   // Add null check for subRegions
   if (!subRegions || !Array.isArray(subRegions)) {
@@ -26,7 +27,7 @@ function SubRegionFilter({ subRegions, selectedSubRegion, setSubRegion }) {
       <option value="">{t('allSubRegions')}</option>
       {subRegions.map((subRegion, index) => (
         <option key={index} value={subRegion}>
-          {subRegion}
+          {translateSubRegion(subRegion, language)}
         </option>
       ))}
     </select>

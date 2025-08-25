@@ -38,6 +38,7 @@ export const en = {
   noCurrencyInfo: 'No currency information available.',
   map: 'Map',
   loadingCountryInfo: 'Loading country information...',
+  countryInformation: 'Country Information',
   
   // FlagGame
   flagGuessingGame: 'Flag Guessing Game',
@@ -67,9 +68,41 @@ export const en = {
   oceania: 'Oceania',
   americas: 'Americas',
   antarctic: 'Antarctic',
+
+  // Sub-Regions
+  northernAfrica: 'Northern Africa',
+  southernEurope: 'Southern Europe',
+  southEasternAsia: 'South-Eastern Asia',
+  southAmerica: 'South America',
+  caribbean: 'Caribbean',
+  northAmerica: 'North America',
+  westernAsia: 'Western Asia',
+  northernEurope: 'Northern Europe',
+  centralEurope: 'Central Europe',
+  southernAsia: 'Southern Asia',
+  easternAfrica: 'Eastern Africa',
+  polynesia: 'Polynesia',
+  middleAfrica: 'Middle Africa',
+  easternEurope: 'Eastern Europe',
+  westernAfrica: 'Western Africa',
+  southernAfrica: 'Southern Africa',
+  westernEurope: 'Western Europe',
+  micronesia: 'Micronesia',
+  centralAsia: 'Central Asia',
+  centralAmerica: 'Central America',
+  australiaAndNewZealand: 'Australia and New Zealand',
+  easternAsia: 'Eastern Asia',
+  southeastEurope: 'Southeast Europe',
+  melanesia: 'Melanesia',
   
   // Error Messages
   somethingWentWrong: 'Something went wrong',
   somethingWentWrongDesc: "We're sorry, but something unexpected happened.",
-  reloadPage: 'Reload Page'
+  reloadPage: 'Reload Page',
+
+  // Theme
+  lightMode: 'Light Mode',
+  darkMode: 'Dark Mode',
+  switchToLightMode: 'Switch to Light Mode',
+  switchToDarkMode: 'Switch to Dark Mode'
 }; 

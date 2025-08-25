@@ -6,7 +6,6 @@ import SubRegionFilter from "../components/SubRegionFilter";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { useTranslation } from "../hooks/useTranslation";
-
 function HomePage() {
   const { t } = useTranslation();
   const [countries, setCountries] = useState([]);
