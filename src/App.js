@@ -5,6 +5,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/HomePage";
 import CountryPage from "./pages/CountryPage";
 import FlagGame from "./pages/FlagGame";
+import MapGame from "./pages/MapGame";
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -50,11 +51,12 @@ function App() {
       <LanguageProvider>
         <ErrorBoundary>
           <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/country/:name" element={<CountryPage />} />
-              <Route path="/flag-game" element={<FlagGame />} />
-            </Routes>
+                              <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/country/:name" element={<CountryPage />} />
+                    <Route path="/flag-game" element={<FlagGame />} />
+                    <Route path="/map-game" element={<MapGame />} />
+                  </Routes>
           </Router>
         </ErrorBoundary>
       </LanguageProvider>

@@ -13,7 +13,7 @@ export const id = {
   sortBy: 'Urutkan berdasarkan',
   alphabeticalAZ: 'Abjad (A-Z)',
   alphabeticalZA: 'Abjad (Z-A)',
-  playFlagGame: 'Mainkan Permainan Tebak Bendera',
+  playFlagGame: 'Mainkan Tebak Bendera',
   noCountriesFound: 'Tidak ada negara yang ditemukan sesuai kriteria Anda.',
   loadingCountries: 'Memuat negara...',
   errorLoadingCountries: 'Kesalahan Memuat Negara',
@@ -54,6 +54,11 @@ export const id = {
   preparingQuestion: 'Menyiapkan pertanyaan...',
   errorLoadingGame: 'Kesalahan Memuat Permainan',
   failedToLoadGame: 'Gagal memuat negara. Silakan coba lagi nanti.',
+
+  // MapGame
+  mapGuessingGame: 'Permainan Tebak Peta',
+  whichCountryIsThis: 'Negara mana ini?',
+  playMapGame: 'Mainkan Permainan Tebak Peta',
   
   // Score Messages
   perfect: 'Sempurna! 🎉',

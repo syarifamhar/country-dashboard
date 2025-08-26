@@ -13,7 +13,7 @@ export const en = {
   sortBy: 'Sort by',
   alphabeticalAZ: 'Alphabetical (A-Z)',
   alphabeticalZA: 'Alphabetical (Z-A)',
-  playFlagGame: 'Play Flag Guessing Game',
+  playFlagGame: 'Play Flag Game',
   noCountriesFound: 'No countries found matching your criteria.',
   loadingCountries: 'Loading countries...',
   errorLoadingCountries: 'Error Loading Countries',
@@ -54,6 +54,11 @@ export const en = {
   preparingQuestion: 'Preparing question...',
   errorLoadingGame: 'Error Loading Game',
   failedToLoadGame: 'Failed to load countries. Please try again later.',
+
+  // MapGame
+  mapGuessingGame: 'Map Guessing Game',
+  whichCountryIsThis: 'Which country is this?',
+  playMapGame: 'Play Map Guessing Game',
   
   // Score Messages
   perfect: 'Perfect! 🎉',

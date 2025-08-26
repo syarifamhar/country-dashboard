@@ -160,12 +160,19 @@ function HomePage() {
           <ThemeSwitcher />
           <LanguageSwitcher />
           
-          {/* Link to the game */}
-          <Link to="/flag-game">
-            <button className="p-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md">
-              {t('playFlagGame')}
-            </button>
-          </Link>
+                           {/* Links to games */}
+                 <div className="flex flex-col sm:flex-row gap-3">
+                   <Link to="/flag-game">
+                     <button className="w-full sm:w-auto p-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md">
+                       {t('playFlagGame')}
+                     </button>
+                   </Link>
+                   <Link to="/map-game">
+                     <button className="w-full sm:w-auto p-3 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors duration-300 shadow-sm hover:shadow-md">
+                       {t('playMapGame')}
+                     </button>
+                   </Link>
+                 </div>
         </div>
       </div>
 
